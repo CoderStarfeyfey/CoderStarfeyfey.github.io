@@ -3,7 +3,7 @@ var newYear = () => {
     clearTimeout(newYearTimer);
     if (!document.querySelector('#newYear')) return;
     // 新年时间戳 and 星期对象
-    let newYear = new Date('2023-01-22 00:00:00').getTime() / 1000,
+    let newYear = new Date('2022-12-31 17:00:00').getTime() / 1000,
         week = { 0: '周日', 1: '周一', 2: '周二', 3: '周三', 4: '周四', 5: '周五', 6: '周六' }
 
     time();
@@ -19,7 +19,7 @@ var newYear = () => {
         document.querySelector('#newYear .today').innerHTML = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate() + ' ' + week[now.getDay()]
 
         // 现在与新年相差秒数
-        let second = newYear - Math.round(now.getTime() / 1000);
+        let second = Math.abs(newYear - Math.round(now.getTime() / 1000));
 
         // 小于0则表示已经过年
         if (second < 0) {
@@ -27,7 +27,7 @@ var newYear = () => {
             document.querySelector('#newYear .newYear-time').innerHTML = '<span class="happyNewYear">新年快乐</p>';
         } else {
             // 大于0则还未过年
-            document.querySelector('#newYear .title').innerHTML = '距离2023年春节：'
+            document.querySelector('#newYear .title').innerHTML = '距离我们在一起的时间已经有：'
 
             // 大于一天则直接渲染天数
             if (second > 86400) {
@@ -49,7 +49,7 @@ var newYear = () => {
     // 元宝飘落
     jQuery(document).ready(function ($) {
         $('#newYear').wpSuperSnow({
-            flakes: ['https://tuchuang.voooe.cn/images/2023/01/02/yb1.webp', 'https://tuchuang.voooe.cn/images/2023/01/02/yb2.webp', 'https://tuchuang.voooe.cn/images/2023/01/02/yb3.webp'],
+            flakes: ['https://tuchuang.voooe.cn/images/2023/01/02/yb1.webp', 'https://s2.loli.net/2023/01/06/n3bIpjQcGYL42Bl.jpg', 'https://s2.loli.net/2023/01/06/M24Z61BnfeXFzaH.jpg'],
             totalFlakes: '100',
             zIndex: '999999',
             maxSize: '30',
@@ -60,4 +60,5 @@ var newYear = () => {
 }
 // Pjax适配：若没有开启Pjax这里直接是newYear()即可
 // 开了Pjax的用以下两句
-newYear();
+document.addEventListener('pjax:complete', newYear);
+document.addEventListener('DOMContentLoaded', newYear);
